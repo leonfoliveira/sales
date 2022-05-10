@@ -1,4 +1,4 @@
-package br.edu.unifei.transaction.application.usecase.db.repository;
+package br.edu.unifei.transaction.application.db.repository;
 
 import java.util.UUID;
 
