@@ -71,6 +71,7 @@ class DbLoginUserUsecaseTest {
     @Test
     void shouldCallHashComparerWithCorrectParams() {
         User user = UserMock.get();
+        user.setIsActive(true);
         when(getUserRepositorySpy.findByLogin(any()))
                 .thenReturn(Optional.of(user));
         String password = faker.internet().password();

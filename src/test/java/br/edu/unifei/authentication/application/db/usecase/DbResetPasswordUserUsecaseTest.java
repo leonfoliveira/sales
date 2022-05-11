@@ -1,50 +1,39 @@
 package br.edu.unifei.authentication.application.db.usecase;
 
-import br.edu.unifei.authentication.application.db.repository.GetUserRepository;
-import br.edu.unifei.authentication.application.db.repository.GetUserRepositorySpy;
+import br.edu.unifei.authentication.application.contract.FindUserByIdUsecase;
+import br.edu.unifei.authentication.application.contract.FindUserByIdUsecaseSpy;
 import br.edu.unifei.authentication.application.db.repository.UpdateUserRepository;
 import br.edu.unifei.authentication.application.db.repository.UpdateUserRepositorySpy;
 import br.edu.unifei.authentication.domain.entity.User;
-import br.edu.unifei.authentication.domain.exception.UserNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 
-import java.util.Optional;
 import java.util.UUID;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 class DbResetPasswordUserUsecaseTest {
-    GetUserRepository getUserRepositorySpy;
+    FindUserByIdUsecase findUserByIdUsecaseSpy;
     UpdateUserRepository updateUserRepositorySpy;
     DbResetPasswordUserUsecase sut;
 
     @BeforeEach
     void setup() {
-        getUserRepositorySpy = GetUserRepositorySpy.get();
+        findUserByIdUsecaseSpy = FindUserByIdUsecaseSpy.get();
         updateUserRepositorySpy = UpdateUserRepositorySpy.get();
-        sut = new DbResetPasswordUserUsecase(getUserRepositorySpy, updateUserRepositorySpy);
+        sut = new DbResetPasswordUserUsecase(findUserByIdUsecaseSpy, updateUserRepositorySpy);
     }
 
     @Test
-    void shouldCallGetUserRepositoryWithCorrectParam() {
+    void shouldCallFindUserByIdUsecaseSpyWithCorrectParam() {
         ArgumentCaptor<UUID> argumentCaptor = ArgumentCaptor.forClass(UUID.class);
         UUID userId = UUID.randomUUID();
         sut.handle(userId);
-        verify(getUserRepositorySpy).findById(argumentCaptor.capture());
+        verify(findUserByIdUsecaseSpy).handle(argumentCaptor.capture());
         assertEquals(argumentCaptor.getValue(), userId);
-    }
-
-    @Test
-    void shouldThrowUserNotFoundExceptionIfGetUserRepositoryReturnsEmptyOptional() {
-        when(getUserRepositorySpy.findById(any()))
-                .thenReturn(Optional.empty());
-        assertThrows(UserNotFoundException.class,
-                () -> sut.handle(UUID.randomUUID()));
     }
 
     @Test
