@@ -6,7 +6,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.when;
 
-public class HashGeneratorSpy {
+public abstract class HashGeneratorSpy {
     public static HashGenerator get() {
         HashGenerator hashGeneratorSpy = spy(HashGenerator.class);
         Faker faker = new Faker();
