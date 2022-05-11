@@ -21,7 +21,9 @@ public class DbLoginUserUsecase implements LoginUserUsecase {
         User user = getUserRepository.findByLogin(login)
                 .orElseThrow(InvalidCredentialsException::new);
 
-        if (!user.getIsActive() || !hashComparer.compare(password, user.getPassword())) {
+        if (!user.getIsActive()
+                || user.getPassword() == null
+                || !hashComparer.compare(password, user.getPassword())) {
             throw new InvalidCredentialsException();
         }
 

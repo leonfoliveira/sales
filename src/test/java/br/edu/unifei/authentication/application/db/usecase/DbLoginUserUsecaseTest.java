@@ -69,6 +69,17 @@ class DbLoginUserUsecaseTest {
     }
 
     @Test
+    void shouldThrowInvalidCredentialsExceptionIfGetUserRepositoryReturnsUserWithNullPassword() {
+        User user = UserMock.get();
+        user.setPassword(null);
+        user.setIsActive(true);
+        when(getUserRepositorySpy.findByLogin(any()))
+                .thenReturn(Optional.of(user));
+        assertThrows(InvalidCredentialsException.class,
+                () -> sut.handle(faker.name().firstName(), faker.internet().password()));
+    }
+
+    @Test
     void shouldCallHashComparerWithCorrectParams() {
         User user = UserMock.get();
         user.setIsActive(true);
