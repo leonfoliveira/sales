@@ -10,6 +10,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.Optional;
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -17,38 +18,38 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-class DbFindProductByBarCodeUsecaseTest {
+class DbFindProductByIdUsecaseTest {
     GetProductRepository getProductRepositorySpy;
-    DbFindProductByBarCodeUsecase sut;
+    DbFindProductByIdUsecase sut;
     Faker faker = new Faker();
 
     @BeforeEach
     void setup() {
         getProductRepositorySpy = GetProductRepositorySpy.get();
-        sut = new DbFindProductByBarCodeUsecase(getProductRepositorySpy);
+        sut = new DbFindProductByIdUsecase(getProductRepositorySpy);
     }
 
     @Test
     void shouldCallGetProductRepositoryWithCorrectParams() {
-        String barcode = faker.number().digits(10);
-        sut.handle(barcode);
-        verify(getProductRepositorySpy).findByBarCode(barcode);
+        UUID id = UUID.randomUUID();
+        sut.handle(id);
+        verify(getProductRepositorySpy).findById(id);
     }
 
     @Test
     void shouldThrowProductNotFoundExceptionIfGetProductRepositoryReturnsEmptyResponse() {
-        when(getProductRepositorySpy.findByBarCode(any()))
+        when(getProductRepositorySpy.findById(any()))
                 .thenReturn(Optional.empty());
         assertThrows(ProductNotFoundException.class,
-                () -> sut.handle(faker.number().digits(10)));
+                () -> sut.handle(UUID.randomUUID()));
     }
 
     @Test
     void shouldReturnAProductEntityOnSuccess() {
         Product product = ProductMock.get();
-        when(getProductRepositorySpy.findByBarCode(any()))
+        when(getProductRepositorySpy.findById(any()))
                 .thenReturn(Optional.of(product));
-        Product result = sut.handle(faker.number().digits(10));
+        Product result = sut.handle(UUID.randomUUID());
         assertEquals(result, product);
     }
 }
