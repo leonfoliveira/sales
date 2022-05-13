@@ -1,4 +1,6 @@
 package br.edu.unifei.authentication.application.model;
 
-public record Authorization(String accessToken, AuthorizationPayload payload) {
+import br.edu.unifei.authentication.domain.entity.User;
+
+public record Authorization(String accessToken, User user) {
 }
