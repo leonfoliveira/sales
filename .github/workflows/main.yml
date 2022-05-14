@@ -17,6 +17,7 @@ jobs:
         with:
           java-version: "17"
           distribution: "adopt"
+          cache: "maven"
       - name: Run tests with Maven
         run: mvn test
       - name: Build with Maven
