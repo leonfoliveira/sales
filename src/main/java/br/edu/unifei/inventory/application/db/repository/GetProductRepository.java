@@ -9,7 +9,7 @@ import java.util.UUID;
 public interface GetProductRepository {
     List<Product> getAll(Boolean includeInactive);
 
-    Optional<Product> findById(UUID id);
+    Optional<Product> findById(UUID productId);
 
     Optional<Product> findByBarCode(String barCode);
 }
