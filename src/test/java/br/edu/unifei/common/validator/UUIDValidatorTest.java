@@ -15,6 +15,11 @@ class UUIDValidatorTest {
     Faker faker = new Faker();
 
     @Test
+    void shouldInitializeSuccessfully() {
+        sut.initialize(null);
+    }
+
+    @Test
     void shouldReturnTrueForAValidUUID() {
         UUID uuid = UUID.randomUUID();
         boolean result = sut.isValid(uuid.toString(), context);

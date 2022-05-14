@@ -1,11 +1,11 @@
 package br.edu.unifei.authentication.presentation.springweb.request;
 
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 
 import javax.validation.constraints.NotEmpty;
 
-@Data
+@Getter
 @Builder
 public class LoginUserRequest {
     @NotEmpty
