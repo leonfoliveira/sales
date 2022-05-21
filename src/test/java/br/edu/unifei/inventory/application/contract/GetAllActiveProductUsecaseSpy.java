@@ -8,10 +8,10 @@ import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.when;
 
 
-public class GetAllProductUsecaseSpy {
+public class GetAllActiveProductUsecaseSpy {
     public static  GetAllProductUsecase get() {
         GetAllProductUsecase getAllProductUsecase = spy(GetAllProductUsecase.class);
-        when(getAllProductUsecase.handle()).thenReturn(List.of(ProductMock.get()));
+        when(getAllProductUsecase.handle(false)).thenReturn(List.of(ProductMock.get()));
         return getAllProductUsecase;
     }
 
