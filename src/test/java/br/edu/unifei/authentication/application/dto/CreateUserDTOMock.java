@@ -8,7 +8,6 @@ public abstract class CreateUserDTOMock {
         Faker faker = new Faker();
         return new CreateUserDTO(
                 faker.name().firstName(),
-                faker.internet().password(),
                 faker.options().option(PermissionLevel.class));
     }
 }
