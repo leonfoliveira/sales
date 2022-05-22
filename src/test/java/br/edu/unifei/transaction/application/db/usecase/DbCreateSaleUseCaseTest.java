@@ -62,7 +62,7 @@ public class DbCreateSaleUseCaseTest {
     void shouldThrowProductNotFoundExceptionIfProductIsNotActive() {
         CreateSaleDTO dto = CreateSaleDTOMock.get();
         Product product = ProductMock.get();
-        product.setIsActive(true);
+        product.setIsActive(false);
         when(getProductRepositorySpy.findById(any()))
                 .thenReturn(Optional.of(product));
         assertThrows(ProductNotFoundException.class,
