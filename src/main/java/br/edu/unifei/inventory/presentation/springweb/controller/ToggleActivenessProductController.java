@@ -1,6 +1,7 @@
 package br.edu.unifei.inventory.presentation.springweb.controller;
 
 
+import br.edu.unifei.common.validator.IsUUID;
 import br.edu.unifei.inventory.application.contract.ToggleActivenessProductUsecase;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -15,21 +16,21 @@ import javax.validation.Valid;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/products/toggle-activeness/")
+@RequestMapping("/products")
 @Validated
-@Tag(name = "ToggleActiveness")
+@Tag(name = "Products")
 @RequiredArgsConstructor
 public class ToggleActivenessProductController {
     private final ToggleActivenessProductUsecase toggleActivenessProductUsecase;
 
-    @PostMapping("/{productId}")
+    @PostMapping("/{productId}/toggle")
     @ResponseStatus(HttpStatus.OK)
     @Operation(summary = "Toggle activeness")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Success"),
             @ApiResponse(responseCode = "404", description = "Product not found"),
     })
-    public void handle(@RequestParam @Valid String productId){
+    public void handle(@RequestParam @IsUUID String productId){
         toggleActivenessProductUsecase.handle(UUID.fromString(productId));
     }
 

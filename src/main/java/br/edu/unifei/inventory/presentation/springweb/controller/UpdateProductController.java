@@ -21,17 +21,18 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/products")
 @Validated
-@Tag(name = "products")
+@Tag(name = "Products")
 @RequiredArgsConstructor
 public class UpdateProductController {
     private final UpdateProductUsecase updateProductUsecase;
 
     @PutMapping("/{productId}")
     @ResponseStatus(HttpStatus.OK)
-    @Operation(summary = "Update a User")
+    @Operation(summary = "Update a Product")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Success"),
             @ApiResponse(responseCode = "404", description = "Product not found"),
+            @ApiResponse(responseCode = "409", description = "Barcode already in use"),
     })
     public ProductResponse handle(
             @RequestParam @IsUUID String productId,

@@ -1,6 +1,7 @@
 package br.edu.unifei.inventory.presentation.springweb.controller;
 
 import br.edu.unifei.inventory.application.contract.GetAllProductUsecase;
+import br.edu.unifei.inventory.presentation.springweb.response.ProductResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -10,10 +11,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/products")
 @Validated
-@Tag(name = "products")
+@Tag(name = "Products")
 @RequiredArgsConstructor
 public class GetAllProductController {
     private final GetAllProductUsecase getAllProductUsecase;
@@ -24,7 +27,9 @@ public class GetAllProductController {
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Success"),
     })
-    public void handle() {
-        getAllProductUsecase.handle();
+    public List<ProductResponse> handle() {
+        return getAllProductUsecase.handle().stream()
+                .map(ProductResponse::new)
+                .toList();
     }
 }
