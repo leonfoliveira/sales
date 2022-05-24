@@ -46,8 +46,4 @@ public class CreateProductControllerTest {
         ProductResponse response = sut.handle(CreateProductRequestMock.get());
         assertEquals(response, new ProductResponse(product));
     }
-
-
-
-
 }

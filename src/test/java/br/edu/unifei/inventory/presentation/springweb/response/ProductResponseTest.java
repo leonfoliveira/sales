@@ -11,6 +11,7 @@ public class ProductResponseTest {
     void shouldMapFromProductEntityCorrectly() {
         Product product = ProductMock.get();
         ProductResponse productResponse = new ProductResponse(product);
+        assertEquals(productResponse.id(), product.getId());
         assertEquals(productResponse.title(), product.getTitle());
         assertEquals(productResponse.barCode(), product.getBarCode());
         assertEquals(productResponse.unitPrice(), product.getUnitPrice());

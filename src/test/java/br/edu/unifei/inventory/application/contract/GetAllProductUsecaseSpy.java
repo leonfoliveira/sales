@@ -1,7 +1,9 @@
 package br.edu.unifei.inventory.application.contract;
 
+import br.edu.unifei.inventory.domain.entity.Product;
 import br.edu.unifei.inventory.domain.entity.ProductMock;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.mockito.Mockito.spy;

@@ -9,10 +9,7 @@ import static org.mockito.Mockito.when;
 public abstract class FindProductByIdUsecaseSpy {
     public static FindProductByIdUsecase get() {
         FindProductByIdUsecase findProductByIdUsecase = spy(FindProductByIdUsecase.class);
-
-        when(findProductByIdUsecase.handle(any()))
-                .thenReturn(ProductMock.get());
-
+        when(findProductByIdUsecase.handle(any())).thenReturn(ProductMock.get());
         return findProductByIdUsecase;
     }
 }
