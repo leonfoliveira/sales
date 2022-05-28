@@ -2,16 +2,20 @@ package br.edu.unifei.inventory.persistence.jpa.entity;
 
 import br.edu.unifei.inventory.domain.entity.Product;
 import br.edu.unifei.inventory.domain.entity.UnitType;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-@Entity
-@Data
+@Getter
+@Setter
+@Entity(name = "Product")
+@Table(name = "tb_product")
 public class JpaProduct {
     @Id
     private UUID id;
