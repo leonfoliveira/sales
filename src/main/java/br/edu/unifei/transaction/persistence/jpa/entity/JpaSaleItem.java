@@ -1,40 +1,35 @@
 package br.edu.unifei.transaction.persistence.jpa.entity;
 
-import br.edu.unifei.inventory.domain.entity.Product;
-import br.edu.unifei.transaction.domain.entity.Sale;
+import br.edu.unifei.inventory.persistence.jpa.entity.JpaProduct;
 import br.edu.unifei.transaction.domain.entity.SaleItem;
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.math.BigDecimal;
-import java.util.UUID;
 
 @Entity
 @Data
+@Table(name = "tb_sale_item")
 public class JpaSaleItem {
     @Id @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long id;
-    private UUID productId;
+    @ManyToOne
+    private JpaProduct product;
     private double amount;
     private BigDecimal unitPrice;
-    private UUID saleId;
 
     public JpaSaleItem() {
     }
 
-    public JpaSaleItem(SaleItem saleItem, UUID saleId) {
-        this.productId = saleItem.getProduct().getId();
+    public JpaSaleItem(SaleItem saleItem) {
+        this.product = new JpaProduct(saleItem.getProduct());
         this.amount = saleItem.getAmount();
         this.unitPrice = saleItem.getUnitPrice();
-        this.saleId = saleId;
     }
 
-    public SaleItem toDomainEntity(Product product) {
+    public SaleItem toDomainEntity() {
         return SaleItem.builder()
-                .product(product)
+                .product(product.toDomainEntity())
                 .amount(this.amount)
                 .unitPrice(this.unitPrice)
                 .build();
