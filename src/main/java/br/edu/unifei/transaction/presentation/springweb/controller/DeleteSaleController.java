@@ -21,7 +21,7 @@ import java.util.UUID;
 public class DeleteSaleController {
     private final DeleteSaleUsecase deleteSaleUsecase;
 
-    @DeleteMapping("/{SaleId}")
+    @DeleteMapping("/{saleId}")
     @ResponseStatus(HttpStatus.OK)
     @Operation(summary = "Delete sale")
     @ApiResponses({
