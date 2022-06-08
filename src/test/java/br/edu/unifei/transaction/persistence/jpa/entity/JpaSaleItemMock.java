@@ -12,8 +12,8 @@ public abstract class JpaSaleItemMock {
 
         jpaSaleItem.setId(faker.random().nextLong());
         jpaSaleItem.setProduct(JpaProductMock.get());
-        jpaSaleItem.setAmount(faker.random().nextInt(1,10));
-        jpaSaleItem.setUnitPrice(new BigDecimal(faker.random().nextDouble()));
+        jpaSaleItem.setAmount(faker.random().nextInt(1, 10));
+        jpaSaleItem.setUnitPrice(BigDecimal.valueOf(faker.random().nextDouble()));
 
         return jpaSaleItem;
     }

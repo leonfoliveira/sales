@@ -2,17 +2,20 @@ package br.edu.unifei.transaction.persistence.jpa.entity;
 
 import br.edu.unifei.inventory.persistence.jpa.entity.JpaProduct;
 import br.edu.unifei.transaction.domain.entity.SaleItem;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 
-@Entity
-@Data
+@Getter
+@Setter
+@Entity(name = "SaleItem")
 @Table(name = "tb_sale_item")
 public class JpaSaleItem {
-    @Id @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private Long id;
     @ManyToOne
     private JpaProduct product;
     private double amount;
