@@ -1,9 +1,9 @@
 package br.edu.unifei.authentication.application.db.usecase;
 
-import br.edu.unifei.authentication.application.db.infra.HashComparer;
-import br.edu.unifei.authentication.application.db.infra.HashComparerSpy;
-import br.edu.unifei.authentication.application.db.infra.TokenGenerator;
-import br.edu.unifei.authentication.application.db.infra.TokenGeneratorSpy;
+import br.edu.unifei.authentication.application.db.infrastructure.HashComparer;
+import br.edu.unifei.authentication.application.db.infrastructure.HashComparerSpy;
+import br.edu.unifei.authentication.application.db.infrastructure.TokenGenerator;
+import br.edu.unifei.authentication.application.db.infrastructure.TokenGeneratorSpy;
 import br.edu.unifei.authentication.application.db.repository.GetUserRepository;
 import br.edu.unifei.authentication.application.db.repository.GetUserRepositorySpy;
 import br.edu.unifei.authentication.application.model.Authorization;
@@ -16,6 +16,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 
+import java.util.Map;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -99,17 +100,19 @@ class DbLoginUserUsecaseTest {
     }
 
     @Test
+    @SuppressWarnings("unchecked")
     void shouldCallTokenGeneratorWithCorrectParams() {
         User user = UserMock.get();
         user.setIsActive(true);
         when(getUserRepositorySpy.findByLogin(any()))
                 .thenReturn(Optional.of(user));
-        ArgumentCaptor<AuthorizationPayload> argumentCaptor = ArgumentCaptor.forClass(AuthorizationPayload.class);
+        ArgumentCaptor<Map<String, Object>> argumentCaptor = ArgumentCaptor.forClass(Map.class);
         sut.handle(faker.name().firstName(), faker.internet().password());
         verify(tokenGeneratorSpy).generate(argumentCaptor.capture());
-        assertEquals(argumentCaptor.getValue().userId(), user.getId());
-        assertEquals(argumentCaptor.getValue().login(), user.getLogin());
-        assertEquals(argumentCaptor.getValue().permissionLevel(), user.getPermissionLevel());
+        AuthorizationPayload payload = (AuthorizationPayload) argumentCaptor.getValue().get("payload");
+        assertEquals(payload.userId(), user.getId());
+        assertEquals(payload.login(), user.getLogin());
+        assertEquals(payload.permissionLevel(), user.getPermissionLevel());
     }
 
     @Test

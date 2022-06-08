@@ -1,14 +1,17 @@
 package br.edu.unifei.authentication.application.db.usecase;
 
 import br.edu.unifei.authentication.application.contract.LoginUserUsecase;
-import br.edu.unifei.authentication.application.db.infra.HashComparer;
-import br.edu.unifei.authentication.application.db.infra.TokenGenerator;
+import br.edu.unifei.authentication.application.db.infrastructure.HashComparer;
+import br.edu.unifei.authentication.application.db.infrastructure.TokenGenerator;
 import br.edu.unifei.authentication.application.db.repository.GetUserRepository;
 import br.edu.unifei.authentication.application.model.Authorization;
 import br.edu.unifei.authentication.application.model.AuthorizationPayload;
 import br.edu.unifei.authentication.domain.entity.User;
 import br.edu.unifei.authentication.domain.exception.InvalidCredentialsException;
 import lombok.RequiredArgsConstructor;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @RequiredArgsConstructor
 public class DbLoginUserUsecase implements LoginUserUsecase {
@@ -31,7 +34,9 @@ public class DbLoginUserUsecase implements LoginUserUsecase {
                 user.getId(),
                 user.getLogin(),
                 user.getPermissionLevel());
-        String accessToken = tokenGenerator.generate(payload);
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("payload", payload);
+        String accessToken = tokenGenerator.generate(claims);
 
         return new Authorization(accessToken, payload);
     }
