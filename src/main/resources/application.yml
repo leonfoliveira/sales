@@ -10,5 +10,3 @@ spring:
     console:
       enabled: true
 springdoc.swagger-ui.path: /api-docs
-jwt:
-  secret: CHANGE-ME
