@@ -2,7 +2,7 @@ package br.edu.unifei.authentication.application.db.usecase;
 
 import br.edu.unifei.authentication.application.contract.FindUserByIdUsecase;
 import br.edu.unifei.authentication.application.contract.SetPasswordUserUsecase;
-import br.edu.unifei.authentication.application.db.infra.HashGenerator;
+import br.edu.unifei.authentication.application.db.infrastructure.HashGenerator;
 import br.edu.unifei.authentication.application.db.repository.UpdateUserRepository;
 import br.edu.unifei.authentication.domain.entity.User;
 import br.edu.unifei.authentication.domain.exception.PasswordAlreadySetException;
