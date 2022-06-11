@@ -21,7 +21,7 @@ import java.util.UUID;
 public class ResetPasswordUserController {
     private final ResetPasswordUserUsecase resetPasswordUserUsecase;
 
-    @PatchMapping("/password/reset")
+    @PatchMapping("/{userId}/password/reset")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @Operation(summary = "Reset a User's password")
     @ApiResponses({

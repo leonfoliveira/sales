@@ -23,7 +23,7 @@ import java.util.UUID;
 public class SetPasswordUserController {
     private final SetPasswordUserUsecase setPasswordUserUsecase;
 
-    @PatchMapping("/password/{userId}")
+    @PatchMapping("/{userId}/password/set")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @Operation(summary = "Set a User's password")
     @ApiResponses({
