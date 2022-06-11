@@ -17,9 +17,9 @@ public class AuthenticationCompositor {
     private final JwtAdapter jwtAdapter;
     private final JpaGetUserRepositoryAdapter jpaGetUserRepositoryAdapter;
     private final JpaSaveUserRepositoryAdapter jpaSaveUserRepositoryAdapter;
-    @Value("{jwt.secret}")
+    @Value("${jwt.secret}")
     private String jwtSecret;
-    @Value("{jwt.expiration}")
+    @Value("${jwt.expiration}")
     private Integer jwtExpiration;
 
     public AuthenticationCompositor(JpaUserRepository jpaUserRepository) {
