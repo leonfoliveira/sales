@@ -19,34 +19,34 @@ public class InventoryCompositor {
     }
 
     @Bean
-    private CreateProductUsecase createProductUsecase() {
+    public CreateProductUsecase createProductUsecase() {
         return new DbCreateProductUsecase(jpaGetProductRepositoryAdapter,
                 jpaSaveUserRepositoryAdapter);
     }
 
     @Bean
-    private FindProductByBarCodeUsecase findProductByBarCodeUsecase() {
+    public FindProductByBarCodeUsecase findProductByBarCodeUsecase() {
         return new DbFindProductByBarCodeUsecase(jpaGetProductRepositoryAdapter);
     }
 
     @Bean
-    private FindProductByIdUsecase findProductByIdUsecase() {
+    public FindProductByIdUsecase findProductByIdUsecase() {
         return new DbFindProductByIdUsecase(jpaGetProductRepositoryAdapter);
     }
 
     @Bean
-    private GetAllProductUsecase getAllProductUsecase() {
+    public GetAllProductUsecase getAllProductUsecase() {
         return new DbGetAllProductUsecase(jpaGetProductRepositoryAdapter);
     }
 
     @Bean
-    private ToggleActivenessProductUsecase toggleActivenessProductUsecase() {
+    public ToggleActivenessProductUsecase toggleActivenessProductUsecase() {
         return new DbToggleActivenessProductUsecase(findProductByIdUsecase(),
                 jpaSaveUserRepositoryAdapter);
     }
 
     @Bean
-    private UpdateProductUsecase updateProductUsecase() {
+    public UpdateProductUsecase updateProductUsecase() {
         return new DbUpdateProductUsecase(jpaGetProductRepositoryAdapter,
                 findProductByIdUsecase(),
                 jpaSaveUserRepositoryAdapter);

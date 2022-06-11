@@ -30,49 +30,49 @@ public class AuthenticationCompositor {
     }
 
     @Bean
-    private CreateUserUsecase createUserUsecase() {
+    public CreateUserUsecase createUserUsecase() {
         return new DbCreateUserUsecase(jpaGetUserRepositoryAdapter,
                 jpaSaveUserRepositoryAdapter);
     }
 
     @Bean
-    private FindUserByIdUsecase findUserByIdUsecase() {
+    public FindUserByIdUsecase findUserByIdUsecase() {
         return new DbFindUserByIdUsecase(jpaGetUserRepositoryAdapter);
     }
 
     @Bean
-    private GetAllUserUsecase getAllUserUsecase() {
+    public GetAllUserUsecase getAllUserUsecase() {
         return new DbGetAllUserUsecase(jpaGetUserRepositoryAdapter);
     }
 
     @Bean
-    private LoginUserUsecase loginUserUsecase() {
+    public LoginUserUsecase loginUserUsecase() {
         return new DbLoginUserUsecase(jpaGetUserRepositoryAdapter,
                 bCryptAdapter,
                 jwtAdapter);
     }
 
     @Bean
-    private ResetPasswordUserUsecase resetPasswordUserUsecase() {
+    public ResetPasswordUserUsecase resetPasswordUserUsecase() {
         return new DbResetPasswordUserUsecase(findUserByIdUsecase(),
                 jpaSaveUserRepositoryAdapter);
     }
 
     @Bean
-    private SetPasswordUserUsecase setPasswordUserUsecase() {
+    public SetPasswordUserUsecase setPasswordUserUsecase() {
         return new DbSetPasswordUserUsecase(findUserByIdUsecase(),
                 jpaSaveUserRepositoryAdapter,
                 bCryptAdapter);
     }
 
     @Bean
-    private ToggleActivenessUserUsecase toggleActivenessUserUsecase() {
+    public ToggleActivenessUserUsecase toggleActivenessUserUsecase() {
         return new DbToggleActivenessUserUsecase(findUserByIdUsecase(),
                 jpaSaveUserRepositoryAdapter);
     }
 
     @Bean
-    private UpdateUserUsecase updateUserUsecase() {
+    public UpdateUserUsecase updateUserUsecase() {
         return new DbUpdateUserUsecase(jpaGetUserRepositoryAdapter,
                 findUserByIdUsecase(),
                 jpaSaveUserRepositoryAdapter);
