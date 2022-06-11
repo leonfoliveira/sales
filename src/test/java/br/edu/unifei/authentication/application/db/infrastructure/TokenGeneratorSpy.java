@@ -1,4 +1,4 @@
-package br.edu.unifei.authentication.application.db.infra;
+package br.edu.unifei.authentication.application.db.infrastructure;
 
 import com.github.javafaker.Faker;
 
