@@ -1,7 +1,8 @@
 package br.edu.unifei.transaction.persistence.jpa.entity;
 
 import br.edu.unifei.transaction.domain.entity.Sale;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -11,8 +12,9 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
-@Entity
-@Data
+@Getter
+@Setter
+@Entity(name = "Sale")
 @Table(name = "tb_sale")
 public class JpaSale {
     @Id
@@ -25,11 +27,11 @@ public class JpaSale {
     public JpaSale() {
     }
 
-    public JpaSale (Sale sale) {
+    public JpaSale(Sale sale) {
         this.id = sale.getId();
         this.jpaSaleItem = sale.getItems()
                 .stream()
-                .map(item -> new JpaSaleItem(item))
+                .map(JpaSaleItem::new)
                 .toList();
         this.createdAt = sale.getCreatedAt();
     }

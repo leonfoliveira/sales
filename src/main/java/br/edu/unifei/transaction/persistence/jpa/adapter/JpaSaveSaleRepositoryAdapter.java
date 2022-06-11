@@ -6,16 +6,14 @@ import br.edu.unifei.transaction.domain.entity.Sale;
 import br.edu.unifei.transaction.domain.exception.SaleNotFoundException;
 import br.edu.unifei.transaction.persistence.jpa.entity.JpaSale;
 import br.edu.unifei.transaction.persistence.jpa.repository.JpaSaleRepository;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
 
 @RequiredArgsConstructor
-@AllArgsConstructor
 public class JpaSaveSaleRepositoryAdapter implements InsertSaleRepository, DeleteSaleRepository {
-    JpaSaleRepository saleRepository;
+    private final JpaSaleRepository saleRepository;
 
     @Override
     public void insert(Sale sale) {

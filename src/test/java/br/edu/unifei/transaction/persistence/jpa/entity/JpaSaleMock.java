@@ -1,7 +1,5 @@
 package br.edu.unifei.transaction.persistence.jpa.entity;
 
-import com.github.javafaker.Faker;
-
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
