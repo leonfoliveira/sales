@@ -16,7 +16,7 @@ public class JpaGetProductRepositoryAdapter implements GetProductRepository {
 
     @Override
     public List<Product> getAll(Boolean includeInactive) {
-        return repository.findByIsActive(includeInactive)
+        return (includeInactive ? repository.findAll() : repository.findByIsActive(true))
                 .stream()
                 .map(JpaProduct::toDomainEntity)
                 .toList();
