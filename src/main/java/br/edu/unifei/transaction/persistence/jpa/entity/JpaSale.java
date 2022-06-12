@@ -4,10 +4,7 @@ import br.edu.unifei.transaction.domain.entity.Sale;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
@@ -19,7 +16,7 @@ import java.util.UUID;
 public class JpaSale {
     @Id
     private UUID id;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<JpaSaleItem> jpaSaleItem;
     private LocalDateTime createdAt;
     private LocalDateTime deletedAt;
