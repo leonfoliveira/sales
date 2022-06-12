@@ -23,8 +23,8 @@ import java.util.UUID;
 public class ToggleActivenessProductController {
     private final ToggleActivenessProductUsecase toggleActivenessProductUsecase;
 
-    @PostMapping("/{productId}/toggle")
-    @ResponseStatus(HttpStatus.OK)
+    @PatchMapping("/{productId}/toggle")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     @Operation(summary = "Toggle activeness")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Success"),
