@@ -37,8 +37,9 @@ public class TransactionCompositor {
 
     @Bean
     public DeleteSaleUsecase deleteSaleUsecase() {
-        return new DbDeleteSaleUseCase(jpaSaveSaleRepositoryAdapter,
-                jpaGetSaleRepositoryAdapter);
+        return new DbDeleteSaleUseCase(
+                new DbFindSaleByIdUseCase(jpaGetSaleRepositoryAdapter),
+                jpaSaveSaleRepositoryAdapter);
     }
 
     @Bean

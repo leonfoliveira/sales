@@ -9,7 +9,6 @@ import br.edu.unifei.transaction.persistence.jpa.repository.JpaSaleRepository;
 import lombok.RequiredArgsConstructor;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 @RequiredArgsConstructor
 public class JpaSaveSaleRepositoryAdapter implements InsertSaleRepository, DeleteSaleRepository {
@@ -22,8 +21,8 @@ public class JpaSaveSaleRepositoryAdapter implements InsertSaleRepository, Delet
     }
 
     @Override
-    public void delete(UUID id) {
-        JpaSale existingSale = saleRepository.findById(id)
+    public void delete(Sale sale) {
+        JpaSale existingSale = saleRepository.findById(sale.getId())
                 .orElseThrow(SaleNotFoundException::new);
         JpaSale jpaSale = new JpaSale(existingSale.toDomainEntity());
         jpaSale.setDeletedAt(LocalDateTime.now());

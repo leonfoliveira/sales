@@ -1,7 +1,7 @@
 package br.edu.unifei.transaction.application.db.repository;
 
-import java.util.UUID;
+import br.edu.unifei.transaction.domain.entity.Sale;
 
 public interface DeleteSaleRepository {
-    void delete(UUID id);
+    void delete(Sale sale);
 }
