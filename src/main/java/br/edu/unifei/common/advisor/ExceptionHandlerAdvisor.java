@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.stream.Stream;
 
 @ControllerAdvice
 @RestController
@@ -53,14 +54,13 @@ public class ExceptionHandlerAdvisor {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ExceptionResponse handle(MethodArgumentNotValidException ex) {
-        List<String> fieldErrors = ex.getBindingResult()
-                .getFieldErrors()
-                .stream().map(err -> err.getField() + ": " + err.getDefaultMessage()).toList();
-        List<String> globalErrors = ex.getBindingResult()
-                .getGlobalErrors()
-                .stream().map(err -> err.getObjectName() + ": " + err.getDefaultMessage()).toList();
-        String errors = String.join("\n", fieldErrors) + "\n" + String.join("\n", globalErrors);
-        return new ExceptionResponse(errors);
+        List<String> errors = Stream.concat(ex.getBindingResult()
+                        .getFieldErrors()
+                        .stream().map(err -> err.getField() + ": " + err.getDefaultMessage()),
+                ex.getBindingResult()
+                        .getGlobalErrors()
+                        .stream().map(err -> err.getObjectName() + ": " + err.getDefaultMessage())).toList();
+        return new ExceptionResponse(String.join("\n", errors));
     }
 
     @ExceptionHandler(Exception.class)
