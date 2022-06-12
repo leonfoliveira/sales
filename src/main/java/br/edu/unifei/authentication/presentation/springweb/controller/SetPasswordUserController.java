@@ -2,6 +2,7 @@ package br.edu.unifei.authentication.presentation.springweb.controller;
 
 import br.edu.unifei.authentication.application.contract.SetPasswordUserUsecase;
 import br.edu.unifei.authentication.presentation.springweb.request.SetPasswordUserRequest;
+import br.edu.unifei.common.annotation.RoleAdmin;
 import br.edu.unifei.common.validator.IsUUID;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -28,10 +29,12 @@ public class SetPasswordUserController {
     @Operation(summary = "Set a User's password")
     @ApiResponses({
             @ApiResponse(responseCode = "204", description = "Success"),
-            @ApiResponse(responseCode = "403", description = "Password already set"),
             @ApiResponse(responseCode = "404", description = "User not found")
     })
-    public void handle(@PathVariable @IsUUID String userId, @RequestBody @Valid SetPasswordUserRequest body) {
+    @RoleAdmin
+    public void handle(
+            @PathVariable @IsUUID String userId,
+            @RequestBody @Valid SetPasswordUserRequest body) {
         setPasswordUserUsecase.handle(UUID.fromString(userId), body.getPassword());
     }
 }
