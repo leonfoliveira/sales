@@ -30,13 +30,13 @@ public class JpaGetSaleRepositoryAdapterTest {
     @Test
     void getAllShouldCallJpaSaleRepositoryWithCorrectParams() {
         sut.getAll();
-        verify(jpaSaleRepositorySpy).findAll();
+        verify(jpaSaleRepositorySpy).findByDeletedAtIsNull();
     }
 
     @Test
     void getAllShouldReturnJpaSaleRepositoryMappedResponse() {
         Sale sale = SaleMock.get();
-        when(jpaSaleRepositorySpy.findAll())
+        when(jpaSaleRepositorySpy.findByDeletedAtIsNull())
                 .thenReturn(List.of(new JpaSale(sale)));
         List<Sale> result = sut.getAll();
         assertEquals(result, List.of(sale));

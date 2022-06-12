@@ -17,7 +17,7 @@ class JwtAdapterTest {
 
     @BeforeEach
     void setup() {
-        sut = new JwtAdapter(faker.lorem().word(), faker.random().nextInt(1000, 10000));
+        sut = new JwtAdapter(faker.lorem().characters(10), faker.random().nextInt(1000, 10000));
     }
 
     @Test
