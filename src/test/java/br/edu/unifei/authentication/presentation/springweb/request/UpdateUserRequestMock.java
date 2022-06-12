@@ -8,7 +8,7 @@ public class UpdateUserRequestMock {
         Faker faker = new Faker();
         return UpdateUserRequest.builder()
                 .login(faker.name().firstName())
-                .permissionLevel(faker.options().option(PermissionLevel.class))
+                .permissionLevel(faker.options().option(PermissionLevel.class).toString())
                 .build();
     }
 }

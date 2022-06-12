@@ -3,6 +3,8 @@ package br.edu.unifei.common.advisor;
 import br.edu.unifei.common.exception.*;
 import com.github.javafaker.Faker;
 import org.junit.jupiter.api.Test;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -51,9 +53,23 @@ class ExceptionHandlerAdvisorTest {
     }
 
     @Test
+    void shouldHandleAccessDeniedExceptionCorrectly() {
+        AccessDeniedException ex = new AccessDeniedException("");
+        ExceptionResponse response = sut.handle(ex);
+        assertEquals(response, new ExceptionResponse("Access denied."));
+    }
+
+    @Test
+    void shouldHandleHttpRequestMethodNotSupportedExceptionCorrectly() {
+        HttpRequestMethodNotSupportedException ex = new HttpRequestMethodNotSupportedException("");
+        ExceptionResponse response = sut.handle(ex);
+        assertEquals(response, new ExceptionResponse("Method not allowed."));
+    }
+
+    @Test
     void shouldHandleAnyOtherExceptionCorrectly() {
         Exception ex = new Exception();
         ExceptionResponse response = sut.handle(ex);
-        assertEquals(response, new ExceptionResponse("Internal server error"));
+        assertEquals(response, new ExceptionResponse("Internal server error."));
     }
 }

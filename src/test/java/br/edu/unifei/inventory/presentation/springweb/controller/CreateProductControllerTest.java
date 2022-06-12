@@ -5,6 +5,7 @@ import br.edu.unifei.inventory.application.contract.CreateProductUsecaseSpy;
 import br.edu.unifei.inventory.application.dto.CreateProductDTO;
 import br.edu.unifei.inventory.domain.entity.Product;
 import br.edu.unifei.inventory.domain.entity.ProductMock;
+import br.edu.unifei.inventory.domain.entity.UnitType;
 import br.edu.unifei.inventory.presentation.springweb.request.CreateProductRequest;
 import br.edu.unifei.inventory.presentation.springweb.request.CreateProductRequestMock;
 import br.edu.unifei.inventory.presentation.springweb.response.ProductResponse;
@@ -22,7 +23,7 @@ public class CreateProductControllerTest {
     CreateProductController sut;
 
     @BeforeEach
-    void setup(){
+    void setup() {
         createProductUsecaseSpy = CreateProductUsecaseSpy.get();
         sut = new CreateProductController(createProductUsecaseSpy);
     }
@@ -36,11 +37,11 @@ public class CreateProductControllerTest {
         assertEquals(argumentCaptor.getValue().title(), body.getTitle());
         assertEquals(argumentCaptor.getValue().barCode(), body.getBarCode());
         assertEquals(argumentCaptor.getValue().unitPrice(), body.getUnitPrice());
-        assertEquals(argumentCaptor.getValue().unitType(), body.getUnitType());
+        assertEquals(argumentCaptor.getValue().unitType(), UnitType.valueOf(body.getUnitType()));
     }
 
     @Test
-    void shouldReturnAProductResponseOnSuccess(){
+    void shouldReturnAProductResponseOnSuccess() {
         Product product = ProductMock.get();
         when(createProductUsecaseSpy.handle(any())).thenReturn(product);
         ProductResponse response = sut.handle(CreateProductRequestMock.get());

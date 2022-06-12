@@ -3,6 +3,7 @@ package br.edu.unifei.authentication.presentation.springweb.controller;
 import br.edu.unifei.authentication.application.contract.UpdateUserUsecase;
 import br.edu.unifei.authentication.application.contract.UpdateUserUsecaseSpy;
 import br.edu.unifei.authentication.application.dto.UpdateUserDTO;
+import br.edu.unifei.authentication.domain.entity.PermissionLevel;
 import br.edu.unifei.authentication.domain.entity.User;
 import br.edu.unifei.authentication.domain.entity.UserMock;
 import br.edu.unifei.authentication.presentation.springweb.request.UpdateUserRequest;
@@ -38,7 +39,7 @@ class UpdateUserControllerTest {
         verify(updateUserUsecaseSpy).handle(argumentCaptor.capture());
         assertEquals(argumentCaptor.getValue().id(), userId);
         assertEquals(argumentCaptor.getValue().login(), body.getLogin());
-        assertEquals(argumentCaptor.getValue().permissionLevel(), body.getPermissionLevel());
+        assertEquals(argumentCaptor.getValue().permissionLevel(), PermissionLevel.valueOf(body.getPermissionLevel()));
     }
 
     @Test
