@@ -1,5 +1,6 @@
 package br.edu.unifei.inventory.presentation.springweb.controller;
 
+import br.edu.unifei.common.annotation.RoleCollaborator;
 import br.edu.unifei.inventory.application.contract.GetAllProductUsecase;
 import br.edu.unifei.inventory.presentation.springweb.response.ProductResponse;
 import io.swagger.v3.oas.annotations.Operation;
@@ -30,6 +31,7 @@ public class GetAllActiveProductController {
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Success"),
     })
+    @RoleCollaborator
     public List<ProductResponse> handle() {
         return getAllProductUsecase.handle(false).stream()
                 .map(ProductResponse::new)

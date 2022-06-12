@@ -1,6 +1,7 @@
 package br.edu.unifei.inventory.presentation.springweb.controller;
 
 
+import br.edu.unifei.common.annotation.RoleManager;
 import br.edu.unifei.inventory.application.contract.CreateProductUsecase;
 import br.edu.unifei.inventory.application.dto.CreateProductDTO;
 import br.edu.unifei.inventory.domain.entity.Product;
@@ -20,7 +21,7 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping("/products")
 @Validated
-@Tag(name="Products")
+@Tag(name = "Products")
 @RequiredArgsConstructor
 public class CreateProductController {
     private final CreateProductUsecase createProductUsecase;
@@ -33,10 +34,10 @@ public class CreateProductController {
             @ApiResponse(responseCode = "404", description = "Product not found"),
             @ApiResponse(responseCode = "409", description = "Barcode already in use")
     })
-    public ProductResponse handle(@RequestBody @Valid CreateProductRequest body){
+    @RoleManager
+    public ProductResponse handle(@RequestBody @Valid CreateProductRequest body) {
         CreateProductDTO dto = new CreateProductDTO(body.getTitle(), body.getBarCode(), body.getUnitPrice(), body.getUnitType());
         Product product = createProductUsecase.handle(dto);
         return new ProductResponse(product);
     }
-
 }

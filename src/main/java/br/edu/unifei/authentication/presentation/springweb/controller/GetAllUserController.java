@@ -2,6 +2,7 @@ package br.edu.unifei.authentication.presentation.springweb.controller;
 
 import br.edu.unifei.authentication.application.contract.GetAllUserUsecase;
 import br.edu.unifei.authentication.presentation.springweb.response.UserResponse;
+import br.edu.unifei.common.annotation.RoleAdmin;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -31,6 +32,7 @@ public class GetAllUserController {
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Success")
     })
+    @RoleAdmin
     public List<UserResponse> handle(HttpServletRequest request) {
         return getAllUserUsecase.handle().stream()
                 .map(UserResponse::new)

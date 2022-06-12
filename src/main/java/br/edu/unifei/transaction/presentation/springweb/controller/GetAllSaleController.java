@@ -1,5 +1,6 @@
 package br.edu.unifei.transaction.presentation.springweb.controller;
 
+import br.edu.unifei.common.annotation.RoleManager;
 import br.edu.unifei.transaction.application.contract.GetAllSaleUsecase;
 import br.edu.unifei.transaction.presentation.springweb.response.SaleResponse;
 import io.swagger.v3.oas.annotations.Operation;
@@ -30,6 +31,7 @@ public class GetAllSaleController {
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Success"),
     })
+    @RoleManager
     public List<SaleResponse> handle() {
         return getAllSaleUsecase.handle().stream()
                 .map(SaleResponse::new)

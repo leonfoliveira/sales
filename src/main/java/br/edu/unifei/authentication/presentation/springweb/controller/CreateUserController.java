@@ -5,6 +5,7 @@ import br.edu.unifei.authentication.application.dto.CreateUserDTO;
 import br.edu.unifei.authentication.domain.entity.User;
 import br.edu.unifei.authentication.presentation.springweb.request.CreateUserRequest;
 import br.edu.unifei.authentication.presentation.springweb.response.UserResponse;
+import br.edu.unifei.common.annotation.RoleAdmin;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -31,6 +32,7 @@ public class CreateUserController {
             @ApiResponse(responseCode = "201", description = "Success"),
             @ApiResponse(responseCode = "409", description = "Login already in use")
     })
+    @RoleAdmin
     public UserResponse handle(@RequestBody @Valid CreateUserRequest body) {
         CreateUserDTO dto = new CreateUserDTO(body.getLogin(), body.getPermissionLevel());
         User user = createUserUsecase.handle(dto);

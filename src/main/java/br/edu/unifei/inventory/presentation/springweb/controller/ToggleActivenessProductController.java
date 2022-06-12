@@ -1,6 +1,7 @@
 package br.edu.unifei.inventory.presentation.springweb.controller;
 
 
+import br.edu.unifei.common.annotation.RoleManager;
 import br.edu.unifei.common.validator.IsUUID;
 import br.edu.unifei.inventory.application.contract.ToggleActivenessProductUsecase;
 import io.swagger.v3.oas.annotations.Operation;
@@ -12,7 +13,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.UUID;
 
 @RestController
@@ -30,8 +30,8 @@ public class ToggleActivenessProductController {
             @ApiResponse(responseCode = "200", description = "Success"),
             @ApiResponse(responseCode = "404", description = "Product not found"),
     })
-    public void handle(@RequestParam @IsUUID String productId){
+    @RoleManager
+    public void handle(@RequestParam @IsUUID String productId) {
         toggleActivenessProductUsecase.handle(UUID.fromString(productId));
     }
-
 }

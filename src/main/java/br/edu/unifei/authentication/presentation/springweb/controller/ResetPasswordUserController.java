@@ -1,6 +1,7 @@
 package br.edu.unifei.authentication.presentation.springweb.controller;
 
 import br.edu.unifei.authentication.application.contract.ResetPasswordUserUsecase;
+import br.edu.unifei.common.annotation.RoleAdmin;
 import br.edu.unifei.common.validator.IsUUID;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -28,6 +29,7 @@ public class ResetPasswordUserController {
             @ApiResponse(responseCode = "204", description = "Success"),
             @ApiResponse(responseCode = "404", description = "User not found")
     })
+    @RoleAdmin
     public void handle(@RequestParam @IsUUID String userId) {
         resetPasswordUserUsecase.handle(UUID.fromString(userId));
     }
