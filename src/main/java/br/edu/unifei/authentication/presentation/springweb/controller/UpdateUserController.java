@@ -2,6 +2,7 @@ package br.edu.unifei.authentication.presentation.springweb.controller;
 
 import br.edu.unifei.authentication.application.contract.UpdateUserUsecase;
 import br.edu.unifei.authentication.application.dto.UpdateUserDTO;
+import br.edu.unifei.authentication.domain.entity.PermissionLevel;
 import br.edu.unifei.authentication.domain.entity.User;
 import br.edu.unifei.authentication.presentation.springweb.request.UpdateUserRequest;
 import br.edu.unifei.authentication.presentation.springweb.response.UserResponse;
@@ -42,7 +43,7 @@ public class UpdateUserController {
         UpdateUserDTO dto = new UpdateUserDTO(
                 UUID.fromString(userId),
                 body.getLogin(),
-                body.getPermissionLevel());
+                PermissionLevel.valueOf(body.getPermissionLevel()));
         User user = updateUserUsecase.handle(dto);
         return new UserResponse(user);
     }

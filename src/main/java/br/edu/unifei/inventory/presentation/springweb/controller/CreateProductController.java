@@ -5,6 +5,7 @@ import br.edu.unifei.common.annotation.RoleManager;
 import br.edu.unifei.inventory.application.contract.CreateProductUsecase;
 import br.edu.unifei.inventory.application.dto.CreateProductDTO;
 import br.edu.unifei.inventory.domain.entity.Product;
+import br.edu.unifei.inventory.domain.entity.UnitType;
 import br.edu.unifei.inventory.presentation.springweb.request.CreateProductRequest;
 import br.edu.unifei.inventory.presentation.springweb.response.ProductResponse;
 import io.swagger.v3.oas.annotations.Operation;
@@ -36,7 +37,10 @@ public class CreateProductController {
     })
     @RoleManager
     public ProductResponse handle(@RequestBody @Valid CreateProductRequest body) {
-        CreateProductDTO dto = new CreateProductDTO(body.getTitle(), body.getBarCode(), body.getUnitPrice(), body.getUnitType());
+        CreateProductDTO dto = new CreateProductDTO(body.getTitle(),
+                body.getBarCode(),
+                body.getUnitPrice(),
+                UnitType.valueOf(body.getUnitType()));
         Product product = createProductUsecase.handle(dto);
         return new ProductResponse(product);
     }

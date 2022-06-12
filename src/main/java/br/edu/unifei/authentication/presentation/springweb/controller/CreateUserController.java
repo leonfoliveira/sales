@@ -2,6 +2,7 @@ package br.edu.unifei.authentication.presentation.springweb.controller;
 
 import br.edu.unifei.authentication.application.contract.CreateUserUsecase;
 import br.edu.unifei.authentication.application.dto.CreateUserDTO;
+import br.edu.unifei.authentication.domain.entity.PermissionLevel;
 import br.edu.unifei.authentication.domain.entity.User;
 import br.edu.unifei.authentication.presentation.springweb.request.CreateUserRequest;
 import br.edu.unifei.authentication.presentation.springweb.response.UserResponse;
@@ -34,7 +35,8 @@ public class CreateUserController {
     })
     @RoleAdmin
     public UserResponse handle(@RequestBody @Valid CreateUserRequest body) {
-        CreateUserDTO dto = new CreateUserDTO(body.getLogin(), body.getPermissionLevel());
+        CreateUserDTO dto = new CreateUserDTO(body.getLogin(),
+                PermissionLevel.valueOf(body.getPermissionLevel()));
         User user = createUserUsecase.handle(dto);
         return new UserResponse(user);
     }
