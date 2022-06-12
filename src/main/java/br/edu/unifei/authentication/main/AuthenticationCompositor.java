@@ -17,16 +17,13 @@ public class AuthenticationCompositor {
     private final JwtAdapter jwtAdapter;
     private final JpaGetUserRepositoryAdapter jpaGetUserRepositoryAdapter;
     private final JpaSaveUserRepositoryAdapter jpaSaveUserRepositoryAdapter;
-    @Value("${jwt.secret}")
-    private String jwtSecret;
-    @Value("${jwt.expiration}")
-    private Integer jwtExpiration;
 
-    public AuthenticationCompositor(JpaUserRepository jpaUserRepository) {
+    public AuthenticationCompositor(JpaUserRepository jpaUserRepository,
+                                    @Value("${jwt.secret}") String jwtSecret,
+                                    @Value("${jwt.expiration}") Integer jwtExpiration) {
         jwtAdapter = new JwtAdapter(jwtSecret, jwtExpiration);
         jpaGetUserRepositoryAdapter = new JpaGetUserRepositoryAdapter(jpaUserRepository);
         jpaSaveUserRepositoryAdapter = new JpaSaveUserRepositoryAdapter(jpaUserRepository);
-
     }
 
     @Bean

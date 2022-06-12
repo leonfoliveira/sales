@@ -13,3 +13,4 @@ springdoc.swagger-ui.path: /api-docs
 jwt:
   secret: CHANGE_ME
   expiration: 21600000
+rootPassword: CHANGE_ME

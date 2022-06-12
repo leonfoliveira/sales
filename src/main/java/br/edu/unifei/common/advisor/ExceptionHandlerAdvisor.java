@@ -43,6 +43,7 @@ public class ExceptionHandlerAdvisor {
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ExceptionResponse handle(Exception ex) {
+        System.out.println(ex.getMessage());
         return new ExceptionResponse("Internal server error");
     }
 }
