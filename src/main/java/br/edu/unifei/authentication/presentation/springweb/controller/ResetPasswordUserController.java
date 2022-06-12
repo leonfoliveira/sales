@@ -31,8 +31,9 @@ public class ResetPasswordUserController {
             @ApiResponse(responseCode = "404", description = "User not found")
     })
     @RoleAdmin
-    public ResetPasswordUserResponse handle(@RequestParam @IsUUID String userId) {
-        resetPasswordUserUsecase.handle(UUID.fromString(userId));
-        return new ResetPasswordUserResponse(userId);
+    public ResetPasswordUserResponse handle(@PathVariable @IsUUID String userId) {
+        UUID uuidUserId = UUID.fromString(userId);
+        resetPasswordUserUsecase.handle(uuidUserId);
+        return new ResetPasswordUserResponse(uuidUserId);
     }
 }

@@ -31,7 +31,7 @@ public class SetPasswordUserController {
             @ApiResponse(responseCode = "403", description = "Password already set"),
             @ApiResponse(responseCode = "404", description = "User not found")
     })
-    public void handle(@RequestParam @IsUUID String userId, @RequestBody @Valid SetPasswordUserRequest body) {
+    public void handle(@PathVariable @IsUUID String userId, @RequestBody @Valid SetPasswordUserRequest body) {
         setPasswordUserUsecase.handle(UUID.fromString(userId), body.getPassword());
     }
 }

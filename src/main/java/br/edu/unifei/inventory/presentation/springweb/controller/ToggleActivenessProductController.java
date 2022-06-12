@@ -31,7 +31,7 @@ public class ToggleActivenessProductController {
             @ApiResponse(responseCode = "404", description = "Product not found"),
     })
     @RoleManager
-    public void handle(@RequestParam @IsUUID String productId) {
+    public void handle(@PathVariable @IsUUID String productId) {
         toggleActivenessProductUsecase.handle(UUID.fromString(productId));
     }
 }

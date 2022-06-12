@@ -38,7 +38,7 @@ public class UpdateProductController {
     })
     @RoleManager
     public ProductResponse handle(
-            @RequestParam @IsUUID String productId,
+            @PathVariable @IsUUID String productId,
             @RequestBody @Valid UpdateProductRequest body) {
         UpdateProductDTO dto = new UpdateProductDTO(
                 UUID.fromString(productId),

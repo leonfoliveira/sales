@@ -30,7 +30,7 @@ public class ToggleActivenessUserController {
             @ApiResponse(responseCode = "404", description = "User not found")
     })
     @RoleAdmin
-    public void handle(@RequestParam @IsUUID String userId) {
+    public void handle(@PathVariable @IsUUID String userId) {
         toggleActivenessUserUsecase.handle(UUID.fromString(userId));
     }
 }

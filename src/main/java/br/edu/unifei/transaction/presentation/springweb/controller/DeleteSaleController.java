@@ -30,7 +30,7 @@ public class DeleteSaleController {
             @ApiResponse(responseCode = "404", description = "Sale not found")
     })
     @RoleAdmin
-    public void handle(@RequestParam @IsUUID String saleId) {
+    public void handle(@PathVariable @IsUUID String saleId) {
         deleteSaleUsecase.handle(UUID.fromString(saleId));
     }
 }

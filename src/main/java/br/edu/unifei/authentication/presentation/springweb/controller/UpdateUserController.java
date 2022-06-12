@@ -38,7 +38,7 @@ public class UpdateUserController {
     })
     @RoleAdmin
     public UserResponse handle(
-            @RequestParam @IsUUID String userId,
+            @PathVariable @IsUUID String userId,
             @RequestBody @Valid UpdateUserRequest body) {
         UpdateUserDTO dto = new UpdateUserDTO(
                 UUID.fromString(userId),
