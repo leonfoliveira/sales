@@ -10,12 +10,12 @@ import java.lang.annotation.*;
 @Constraint(validatedBy = EnumValidator.class)
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
-@NotNull(message = "value cannot be null")
+@NotNull(message = "Value cannot be null.")
 @ReportAsSingleViolation
 public @interface IsEnum {
     Class<? extends Enum<?>> enumClass();
 
-    String message() default "value must be a valid enum";
+    String message() default "Value must be a valid enum.";
 
     Class<?>[] groups() default {};
 

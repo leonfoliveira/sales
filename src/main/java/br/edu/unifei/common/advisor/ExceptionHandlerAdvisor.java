@@ -3,6 +3,7 @@ package br.edu.unifei.common.advisor;
 import br.edu.unifei.common.exception.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.AccessDeniedException;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -56,17 +57,23 @@ public class ExceptionHandlerAdvisor {
     public ExceptionResponse handle(MethodArgumentNotValidException ex) {
         List<String> errors = Stream.concat(ex.getBindingResult()
                         .getFieldErrors()
-                        .stream().map(err -> err.getField() + ": " + err.getDefaultMessage()),
+                        .stream().map(err -> err.getField() + ": " + err.getDefaultMessage() + "."),
                 ex.getBindingResult()
                         .getGlobalErrors()
-                        .stream().map(err -> err.getObjectName() + ": " + err.getDefaultMessage())).toList();
+                        .stream().map(err -> err.getObjectName() + ": " + err.getDefaultMessage() + ".")).toList();
         return new ExceptionResponse(String.join("\n", errors));
+    }
+
+    @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
+    @ResponseStatus(HttpStatus.METHOD_NOT_ALLOWED)
+    public ExceptionResponse handle(HttpRequestMethodNotSupportedException ex) {
+        return new ExceptionResponse("Method not allowed.");
     }
 
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ExceptionResponse handle(Exception ex) {
         ex.printStackTrace();
-        return new ExceptionResponse("Internal server error");
+        return new ExceptionResponse("Internal server error.");
     }
 }
