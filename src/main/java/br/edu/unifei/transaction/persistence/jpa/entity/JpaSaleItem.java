@@ -37,5 +37,4 @@ public class JpaSaleItem {
                 .unitPrice(this.unitPrice)
                 .build();
     }
-
 }
