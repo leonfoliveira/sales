@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
@@ -30,7 +31,7 @@ public class GetAllUserController {
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Success")
     })
-    public List<UserResponse> handle() {
+    public List<UserResponse> handle(HttpServletRequest request) {
         return getAllUserUsecase.handle().stream()
                 .map(UserResponse::new)
                 .toList();

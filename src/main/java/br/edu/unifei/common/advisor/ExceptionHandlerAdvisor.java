@@ -2,6 +2,7 @@ package br.edu.unifei.common.advisor;
 
 import br.edu.unifei.common.exception.*;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -40,10 +41,16 @@ public class ExceptionHandlerAdvisor {
         return new ExceptionResponse(ex.getMessage());
     }
 
+    @ExceptionHandler(AccessDeniedException.class)
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    public ExceptionResponse handle(AccessDeniedException ex) {
+        return new ExceptionResponse("Access denied.");
+    }
+
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ExceptionResponse handle(Exception ex) {
-        System.out.println(ex.getMessage());
+        ex.printStackTrace();
         return new ExceptionResponse("Internal server error");
     }
 }
