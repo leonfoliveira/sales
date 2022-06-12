@@ -26,7 +26,7 @@ import javax.validation.Valid;
 public class CreateUserController {
     private final CreateUserUsecase createUserUsecase;
 
-    @PostMapping("/")
+    @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     @Operation(summary = "Create a new User")
     @ApiResponses({

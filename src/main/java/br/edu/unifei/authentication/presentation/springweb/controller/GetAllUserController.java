@@ -26,7 +26,7 @@ import java.util.List;
 public class GetAllUserController {
     private final GetAllUserUsecase getAllUserUsecase;
 
-    @GetMapping("/")
+    @GetMapping
     @ResponseStatus(HttpStatus.OK)
     @Operation(summary = "Get a list of all users")
     @ApiResponses({

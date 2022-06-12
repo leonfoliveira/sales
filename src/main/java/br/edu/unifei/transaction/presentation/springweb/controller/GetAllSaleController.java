@@ -25,7 +25,7 @@ import java.util.List;
 public class GetAllSaleController {
     private final GetAllSaleUsecase getAllSaleUsecase;
 
-    @GetMapping("/")
+    @GetMapping
     @ResponseStatus(HttpStatus.OK)
     @Operation(summary = "Get all sales")
     @ApiResponses({

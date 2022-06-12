@@ -25,7 +25,7 @@ import javax.validation.Valid;
 public class CreateSaleController {
     private final CreateSaleUsecase createSaleUsecase;
 
-    @PostMapping("/")
+    @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     @Operation(summary = "Create new sale")
     @ApiResponses({
