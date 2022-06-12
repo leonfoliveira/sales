@@ -4,12 +4,13 @@ import br.edu.unifei.transaction.application.dto.CreateSaleItemDTO;
 import lombok.Builder;
 import lombok.Getter;
 
-import java.util.List;
 import javax.validation.constraints.NotEmpty;
+import java.util.List;
 
 @Getter
 @Builder
 public class CreateSaleRequest {
     @NotEmpty
-    List<CreateSaleItemDTO> items;
+    private List<CreateSaleItemDTO> items;
+    private String placeholder;
 }
