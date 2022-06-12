@@ -16,7 +16,7 @@ public class JpaGetSaleRepositoryAdapter implements GetSaleRepository {
 
     @Override
     public List<Sale> getAll() {
-        return saleRepository.findAll()
+        return saleRepository.findByDeletedAtIsNull()
                 .stream()
                 .map(JpaSale::toDomainEntity)
                 .toList();
