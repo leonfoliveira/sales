@@ -46,7 +46,7 @@ class JpaGetProductRepositoryAdapterTest {
         Product product = ProductMock.get();
         when(jpaProductRepositorySpy.findAll())
                 .thenReturn(List.of(new JpaProduct(product)));
-        List<Product> result = sut.getAll(faker.random().nextBoolean());
+        List<Product> result = sut.getAll(true);
         assertEquals(result, List.of(product));
     }
 
