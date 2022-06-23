@@ -1,9 +1,11 @@
 package br.edu.unifei.inventory.presentation.springweb.controller;
 
 
+import br.edu.unifei.common.annotation.RoleManager;
 import br.edu.unifei.inventory.application.contract.CreateProductUsecase;
 import br.edu.unifei.inventory.application.dto.CreateProductDTO;
 import br.edu.unifei.inventory.domain.entity.Product;
+import br.edu.unifei.inventory.domain.entity.UnitType;
 import br.edu.unifei.inventory.presentation.springweb.request.CreateProductRequest;
 import br.edu.unifei.inventory.presentation.springweb.response.ProductResponse;
 import io.swagger.v3.oas.annotations.Operation;
@@ -20,12 +22,12 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping("/products")
 @Validated
-@Tag(name="Products")
+@Tag(name = "Products")
 @RequiredArgsConstructor
 public class CreateProductController {
     private final CreateProductUsecase createProductUsecase;
 
-    @PostMapping("/")
+    @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     @Operation(summary = "Create new Product")
     @ApiResponses({
@@ -33,10 +35,13 @@ public class CreateProductController {
             @ApiResponse(responseCode = "404", description = "Product not found"),
             @ApiResponse(responseCode = "409", description = "Barcode already in use")
     })
-    public ProductResponse handle(@RequestBody @Valid CreateProductRequest body){
-        CreateProductDTO dto = new CreateProductDTO(body.getTitle(), body.getBarCode(), body.getUnitPrice(), body.getUnitType());
+    @RoleManager
+    public ProductResponse handle(@RequestBody @Valid CreateProductRequest body) {
+        CreateProductDTO dto = new CreateProductDTO(body.getTitle(),
+                body.getBarCode(),
+                body.getUnitPrice(),
+                UnitType.valueOf(body.getUnitType()));
         Product product = createProductUsecase.handle(dto);
         return new ProductResponse(product);
     }
-
 }

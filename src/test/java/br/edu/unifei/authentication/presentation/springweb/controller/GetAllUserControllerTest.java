@@ -26,7 +26,7 @@ class GetAllUserControllerTest {
 
     @Test
     void shouldCallGetAllUserUsecase() {
-        sut.handle();
+        sut.handle(null);
         verify(getAllUserUsecaseSpy).handle();
     }
 
@@ -35,7 +35,7 @@ class GetAllUserControllerTest {
         User user = UserMock.get();
         when(getAllUserUsecaseSpy.handle())
                 .thenReturn(List.of(user));
-        List<UserResponse> response = sut.handle();
+        List<UserResponse> response = sut.handle(null);
         assertEquals(response, List.of(new UserResponse(user)));
     }
 }

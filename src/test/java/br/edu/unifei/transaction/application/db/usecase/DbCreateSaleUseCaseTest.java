@@ -19,13 +19,12 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-import static org.mockito.ArgumentMatchers.any;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 public class DbCreateSaleUseCaseTest {
@@ -78,7 +77,6 @@ public class DbCreateSaleUseCaseTest {
         CreateSaleDTO dto = CreateSaleDTOMock.get();
         CreateSaleItemDTO saleItemDTO = new CreateSaleItemDTO(
                 UUID.randomUUID(),
-                faker.random().nextDouble(),
                 faker.random().nextDouble());
         Product product = ProductMock.get();
         product.setUnitType(UnitType.UNIT);
@@ -124,7 +122,7 @@ public class DbCreateSaleUseCaseTest {
                 .map(item -> SaleItem.builder()
                         .product(product)
                         .amount(item.amount())
-                        .unitPrice(new BigDecimal(item.unitPrice().toString()))
+                        .unitPrice(product.getUnitPrice())
                         .build())
                 .collect(Collectors.toList());
         return items;

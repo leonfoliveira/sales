@@ -1,11 +1,14 @@
 package br.edu.unifei.inventory.presentation.springweb.request;
 
+import br.edu.unifei.common.validator.IsEnum;
 import br.edu.unifei.inventory.domain.entity.UnitType;
 import lombok.Builder;
 import lombok.Getter;
 import org.hibernate.validator.constraints.Length;
 
-import javax.validation.constraints.*;
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Getter
 @Builder
@@ -18,8 +21,6 @@ public class CreateProductRequest {
     private String barCode;
     @NotNull
     private Double unitPrice;
-    @NotNull
-    @Min(0)
-    @Max(1)
-    private UnitType unitType;
+    @IsEnum(enumClass = UnitType.class)
+    private String unitType;
 }

@@ -2,9 +2,11 @@ package br.edu.unifei.authentication.presentation.springweb.controller;
 
 import br.edu.unifei.authentication.application.contract.UpdateUserUsecase;
 import br.edu.unifei.authentication.application.dto.UpdateUserDTO;
+import br.edu.unifei.authentication.domain.entity.PermissionLevel;
 import br.edu.unifei.authentication.domain.entity.User;
 import br.edu.unifei.authentication.presentation.springweb.request.UpdateUserRequest;
 import br.edu.unifei.authentication.presentation.springweb.response.UserResponse;
+import br.edu.unifei.common.annotation.RoleAdmin;
 import br.edu.unifei.common.validator.IsUUID;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -34,13 +36,14 @@ public class UpdateUserController {
             @ApiResponse(responseCode = "404", description = "User not found"),
             @ApiResponse(responseCode = "409", description = "Login already in use")
     })
+    @RoleAdmin
     public UserResponse handle(
-            @RequestParam @IsUUID String userId,
+            @PathVariable @IsUUID String userId,
             @RequestBody @Valid UpdateUserRequest body) {
         UpdateUserDTO dto = new UpdateUserDTO(
                 UUID.fromString(userId),
                 body.getLogin(),
-                body.getPermissionLevel());
+                PermissionLevel.valueOf(body.getPermissionLevel()));
         User user = updateUserUsecase.handle(dto);
         return new UserResponse(user);
     }

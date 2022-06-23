@@ -10,6 +10,7 @@ import javax.validation.constraints.NotEmpty;
 @Builder
 public class SetPasswordUserRequest {
     @NotEmpty
-    @Length(min = 8, max = 200)
+    @Length(min = 8)
     private String password;
+    private String placeholder;
 }

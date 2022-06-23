@@ -9,8 +9,7 @@ public class CreateSaleItemDTOMock {
         Faker faker = new Faker();
         return new CreateSaleItemDTO(
                 UUID.randomUUID(),
-                Double.valueOf(faker.random().nextInt(1,15)),
-                faker.random().nextDouble()
+                Double.valueOf(faker.random().nextInt(1, 15))
         );
     }
 }

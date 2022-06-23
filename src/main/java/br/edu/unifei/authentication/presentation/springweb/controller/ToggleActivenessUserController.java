@@ -1,6 +1,7 @@
 package br.edu.unifei.authentication.presentation.springweb.controller;
 
 import br.edu.unifei.authentication.application.contract.ToggleActivenessUserUsecase;
+import br.edu.unifei.common.annotation.RoleAdmin;
 import br.edu.unifei.common.validator.IsUUID;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -28,7 +29,8 @@ public class ToggleActivenessUserController {
             @ApiResponse(responseCode = "204", description = "Success"),
             @ApiResponse(responseCode = "404", description = "User not found")
     })
-    public void handle(@RequestParam @IsUUID String userId) {
+    @RoleAdmin
+    public void handle(@PathVariable @IsUUID String userId) {
         toggleActivenessUserUsecase.handle(UUID.fromString(userId));
     }
 }

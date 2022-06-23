@@ -2,6 +2,7 @@ package br.edu.unifei.authentication.presentation.springweb.controller;
 
 import br.edu.unifei.authentication.application.contract.GetAllUserUsecase;
 import br.edu.unifei.authentication.presentation.springweb.response.UserResponse;
+import br.edu.unifei.common.annotation.RoleAdmin;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -9,11 +10,12 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
@@ -24,13 +26,14 @@ import java.util.List;
 public class GetAllUserController {
     private final GetAllUserUsecase getAllUserUsecase;
 
-    @PostMapping("/")
+    @GetMapping
     @ResponseStatus(HttpStatus.OK)
     @Operation(summary = "Get a list of all users")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Success")
     })
-    public List<UserResponse> handle() {
+    @RoleAdmin
+    public List<UserResponse> handle(HttpServletRequest request) {
         return getAllUserUsecase.handle().stream()
                 .map(UserResponse::new)
                 .toList();

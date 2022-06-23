@@ -1,5 +1,6 @@
 package br.edu.unifei.transaction.presentation.springweb.controller;
 
+import br.edu.unifei.common.annotation.RoleAdmin;
 import br.edu.unifei.common.validator.IsUUID;
 import br.edu.unifei.transaction.application.contract.DeleteSaleUsecase;
 import io.swagger.v3.oas.annotations.Operation;
@@ -16,7 +17,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/sales")
 @Validated
-@Tag(name="Sales")
+@Tag(name = "Sales")
 @RequiredArgsConstructor
 public class DeleteSaleController {
     private final DeleteSaleUsecase deleteSaleUsecase;
@@ -28,7 +29,8 @@ public class DeleteSaleController {
             @ApiResponse(responseCode = "200", description = "Success"),
             @ApiResponse(responseCode = "404", description = "Sale not found")
     })
-    public void handle(@RequestParam @IsUUID String saleId) {
+    @RoleAdmin
+    public void handle(@PathVariable @IsUUID String saleId) {
         deleteSaleUsecase.handle(UUID.fromString(saleId));
     }
 }

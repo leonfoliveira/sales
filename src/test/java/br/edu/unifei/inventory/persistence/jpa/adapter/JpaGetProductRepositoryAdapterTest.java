@@ -30,18 +30,23 @@ class JpaGetProductRepositoryAdapterTest {
     }
 
     @Test
-    void getAllShouldCallJpaProductRepositoryWithCorrectParams() {
-        Boolean includeInactive = faker.random().nextBoolean();
-        sut.getAll(includeInactive);
-        verify(jpaProductRepositorySpy).findByIsActive(includeInactive);
+    void getAllShouldCallJpaProductRepositoryWithCorrectParamsOnIncludeInactive() {
+        sut.getAll(true);
+        verify(jpaProductRepositorySpy).findAll();
+    }
+
+    @Test
+    void getAllShouldCallJpaProductRepositoryWithCorrectParamsOnNotIncludeInactive() {
+        sut.getAll(false);
+        verify(jpaProductRepositorySpy).findByIsActive(true);
     }
 
     @Test
     void getAllShouldReturnJpaProductRepositoryMappedResponse() {
         Product product = ProductMock.get();
-        when(jpaProductRepositorySpy.findByIsActive(any()))
+        when(jpaProductRepositorySpy.findAll())
                 .thenReturn(List.of(new JpaProduct(product)));
-        List<Product> result = sut.getAll(faker.random().nextBoolean());
+        List<Product> result = sut.getAll(true);
         assertEquals(result, List.of(product));
     }
 

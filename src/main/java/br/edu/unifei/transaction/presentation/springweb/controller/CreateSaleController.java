@@ -1,5 +1,6 @@
 package br.edu.unifei.transaction.presentation.springweb.controller;
 
+import br.edu.unifei.common.annotation.RoleCollaborator;
 import br.edu.unifei.transaction.application.contract.CreateSaleUsecase;
 import br.edu.unifei.transaction.application.dto.CreateSaleDTO;
 import br.edu.unifei.transaction.domain.entity.Sale;
@@ -19,18 +20,19 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping("/sales")
 @Validated
-@Tag(name="Sales")
+@Tag(name = "Sales")
 @RequiredArgsConstructor
 public class CreateSaleController {
     private final CreateSaleUsecase createSaleUsecase;
 
-    @PostMapping("/")
+    @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     @Operation(summary = "Create new sale")
     @ApiResponses({
             @ApiResponse(responseCode = "201", description = "Success"),
             @ApiResponse(responseCode = "404", description = "Product not found")
     })
+    @RoleCollaborator
     public SaleResponse handle(@RequestBody @Valid CreateSaleRequest body) {
         CreateSaleDTO dto = new CreateSaleDTO(body.getItems());
         Sale sale = createSaleUsecase.handle(dto);

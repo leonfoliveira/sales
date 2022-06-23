@@ -13,7 +13,6 @@ import br.edu.unifei.transaction.domain.entity.Sale;
 import br.edu.unifei.transaction.domain.entity.SaleItem;
 import lombok.RequiredArgsConstructor;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
@@ -29,13 +28,13 @@ public class DbCreateSaleUseCase implements CreateSaleUsecase {
     public Sale handle(CreateSaleDTO dto) throws ProductNotFoundException {
 
         HashMap<UUID, Product> products = new HashMap<>();
-        for(CreateSaleItemDTO createSaleItemDTO : dto.items()) {
+        for (CreateSaleItemDTO createSaleItemDTO : dto.items()) {
             Product product = findProductByIdUsecase.handle(createSaleItemDTO.productId());
-            if(!product.getIsActive()) {
+            if (!product.getIsActive()) {
                 throw new ProductNotFoundException();
             }
             double amount = createSaleItemDTO.amount();
-            if(product.getUnitType() == UnitType.UNIT && !(amount == (int)amount)){
+            if (product.getUnitType() == UnitType.UNIT && amount != (int) amount) {
                 throw new BusinessRuleException("Amount need to be an integer value");
             }
             products.put(createSaleItemDTO.productId(), product);
@@ -45,7 +44,7 @@ public class DbCreateSaleUseCase implements CreateSaleUsecase {
                 .map(item -> SaleItem.builder()
                         .product(products.get(item.productId()))
                         .amount(item.amount())
-                        .unitPrice(new BigDecimal(item.unitPrice().toString()))
+                        .unitPrice(products.get(item.productId()).getUnitPrice())
                         .build())
                 .collect(Collectors.toList());
 

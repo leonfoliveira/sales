@@ -67,7 +67,7 @@ The "unitType" information is crucial as the price of the products can change in
 
 - As an **Admin**, I should be able to create new users, so they can login and set their password on first login.
 - As an **Admin**, I should be able to edit existing users, so I can fix incorrect data.
-- As an **Admin**, I should be able to reset users password, so they can set it again on next login.
+- As an **Admin**, I should be able to reset users password and get the path to set it again, so they can change it.
 - As an **Admin**, I should be able to list active users.
 - As an **Admin**, I should be able to toggle users activeness, so I can change their login permission.
 - As an **Admin**, I should be able to delete a sale, so they can't be considered anymore.

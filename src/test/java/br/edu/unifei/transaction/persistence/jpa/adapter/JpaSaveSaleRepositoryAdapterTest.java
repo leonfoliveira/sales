@@ -12,7 +12,6 @@ import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 
 import java.util.Optional;
-import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -51,7 +50,7 @@ public class JpaSaveSaleRepositoryAdapterTest {
         Sale sale = SaleMock.get();
         when(jpaSaleRepositorySpy.findById(any()))
                 .thenReturn(Optional.of(new JpaSale(sale)));
-        sut.delete(sale.getId());
+        sut.delete(sale);
         verify(jpaSaleRepositorySpy).save(argumentCaptor.capture());
         JpaSale jpaSale = argumentCaptor.getValue();
         assertEquals(jpaSale.getId(), sale.getId());
@@ -69,7 +68,6 @@ public class JpaSaveSaleRepositoryAdapterTest {
         when(jpaSaleRepositorySpy.findById(any()))
                 .thenReturn(Optional.empty());
         assertThrows(SaleNotFoundException.class,
-                () -> sut.delete(UUID.randomUUID()));
+                () -> sut.delete(SaleMock.get()));
     }
-
 }

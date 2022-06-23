@@ -1,6 +1,8 @@
 package br.edu.unifei.authentication.presentation.springweb.controller;
 
 import br.edu.unifei.authentication.application.contract.ResetPasswordUserUsecase;
+import br.edu.unifei.authentication.presentation.springweb.response.ResetPasswordUserResponse;
+import br.edu.unifei.common.annotation.RoleAdmin;
 import br.edu.unifei.common.validator.IsUUID;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -21,14 +23,17 @@ import java.util.UUID;
 public class ResetPasswordUserController {
     private final ResetPasswordUserUsecase resetPasswordUserUsecase;
 
-    @PatchMapping("/password/reset")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PatchMapping("/{userId}/password/reset")
+    @ResponseStatus(HttpStatus.OK)
     @Operation(summary = "Reset a User's password")
     @ApiResponses({
-            @ApiResponse(responseCode = "204", description = "Success"),
+            @ApiResponse(responseCode = "200", description = "Success"),
             @ApiResponse(responseCode = "404", description = "User not found")
     })
-    public void handle(@RequestParam @IsUUID String userId) {
-        resetPasswordUserUsecase.handle(UUID.fromString(userId));
+    @RoleAdmin
+    public ResetPasswordUserResponse handle(@PathVariable @IsUUID String userId) {
+        UUID uuidUserId = UUID.fromString(userId);
+        resetPasswordUserUsecase.handle(uuidUserId);
+        return new ResetPasswordUserResponse(uuidUserId);
     }
 }

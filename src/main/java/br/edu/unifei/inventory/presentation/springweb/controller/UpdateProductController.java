@@ -1,9 +1,11 @@
 package br.edu.unifei.inventory.presentation.springweb.controller;
 
+import br.edu.unifei.common.annotation.RoleManager;
 import br.edu.unifei.common.validator.IsUUID;
 import br.edu.unifei.inventory.application.contract.UpdateProductUsecase;
 import br.edu.unifei.inventory.application.dto.UpdateProductDTO;
 import br.edu.unifei.inventory.domain.entity.Product;
+import br.edu.unifei.inventory.domain.entity.UnitType;
 import br.edu.unifei.inventory.presentation.springweb.request.UpdateProductRequest;
 import br.edu.unifei.inventory.presentation.springweb.response.ProductResponse;
 import io.swagger.v3.oas.annotations.Operation;
@@ -34,18 +36,18 @@ public class UpdateProductController {
             @ApiResponse(responseCode = "404", description = "Product not found"),
             @ApiResponse(responseCode = "409", description = "Barcode already in use"),
     })
+    @RoleManager
     public ProductResponse handle(
-            @RequestParam @IsUUID String productId,
-            @RequestBody @Valid UpdateProductRequest body){
+            @PathVariable @IsUUID String productId,
+            @RequestBody @Valid UpdateProductRequest body) {
         UpdateProductDTO dto = new UpdateProductDTO(
                 UUID.fromString(productId),
                 body.getTitle(),
                 body.getBarCode(),
                 body.getUnitPrice(),
-                body.getUnitType());
+                UnitType.valueOf(body.getUnitType()));
 
         Product product = updateProductUsecase.handle(dto);
         return new ProductResponse(product);
     }
-
 }
